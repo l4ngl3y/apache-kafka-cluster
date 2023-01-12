@@ -7,7 +7,7 @@ Ansible роль для развертывания кластера Kafka.
 ## TL;DR
 
 ### Подготовка inventory
-Первоначально нужно создать в папке ```inventory``` новую среду для развертывания, за основу можно взять ```dev-cluster```.
+Предварительно нужно создать в папке ```inventory``` новую среду для развертывания, за основу можно взять ```dev-cluster```.
 В этой папке находится описание хостов и переменных относящихся к новой среды развертывания.  
 
 ### Подготовка нод кластера
@@ -18,24 +18,24 @@ Ansible роль для развертывания кластера Kafka.
 ```
 ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'preinstall'
 ```
-### Установка kafka кластера
+### Установка дистрибутивов Apache Kafka
 ```
 ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'install-kafka'
 ```
-### Настройка kafka кластера
+### Настройка Apache kafka кластера - конифигурирование
 ```
 ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'configure-kafka'
 ```
-### Установка zookeeper кластера
+### Установка дистрибутива Apache zookeeper кластера
 ```
 ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'install-zookeeper'
 ```
-### Настройка zookeeper кластера
+### Настройка Apache zookeeper кластера - конфигурирование
 ```
 ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'configure-zookeeper'
 ```
-### Установка docker engine
-Docker engine - требуется для запуска вспомогательного ПО Apache Kafka - вчастности UI приложения.
+### Установка Docker engine
+Docker engine - требуется для запуска вспомогательного ПО Apache Kafka кластера - вчастности UI приложения.
 ```
 ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'install-docker' --limit 'kafka-01-dev'
 ```
