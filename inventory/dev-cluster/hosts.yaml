@@ -1,0 +1,10 @@
+all:
+  children:
+    kafka:
+      hosts:
+        kafka-0[1:4]-dev:
+          ansible_python_interpreter: /usr/bin/python3
+    zookeeper:
+      hosts:
+        kafka-0[1:4]-dev:
+          ansible_python_interpreter: /usr/bin/python3

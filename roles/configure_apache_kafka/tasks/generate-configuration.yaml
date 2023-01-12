@@ -1,0 +1,8 @@
+- name: Configuration Apache Kafka | Template /etc/kafka/server.properties
+  tags: configure-kafka
+  ansible.builtin.template:
+    src: "templates/server.properties.j2"
+    dest: "/etc/kafka/server.properties"
+    owner: kafka
+    group: kafka
+    mode: 0644

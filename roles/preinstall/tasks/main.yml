@@ -1,0 +1,16 @@
+- name: Start tasks (include-vars, swapoff, os-profiles, required-packages, node-exporter, set-timezone, prepare-user-env)
+  ansible.builtin.include_tasks: "{{ tasks_item }}"
+  tags: preinstall
+  vars:
+    my_var: "{{ tasks_item }}"
+  with_items:
+    - include-vars.yml
+    - swapoff.yml
+    - os-profiles.yml
+    - required-packages.yml
+    - node-exporter.yml
+    - set-timezone.yml
+    - prepare-user-env.yml
+    - hosts-file.yml
+  loop_control:
+    loop_var: tasks_item

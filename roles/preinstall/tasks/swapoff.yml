@@ -1,0 +1,14 @@
+- name: Prepare system | Disable Swapfile
+  tags: preinstall
+  block:
+    - name: Prepare system | Remove swapfile from /etc/fstab
+      ansible.posix.mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+      with_items:
+        - swap
+        - none
+    - name: Prepare system | Disable swap
+      ansible.builtin.command: swapoff -a
+      when: ansible_swaptotal_mb > 0

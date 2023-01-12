@@ -1,0 +1,7 @@
+- name: Install Apache Zookeeper | Create Apache Zookeeper user
+  ansible.builtin.user:
+    name: zookeeper
+    shell: /bin/bash
+    create_home: false
+    system: true
+  tags: install-zookeeper

@@ -1,0 +1,8 @@
+- name: Configuration Apache Kafka | Copy systemd files
+  tags: configure-kafka
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/systemd/kafka.service"
+    dest: /etc/systemd/system/kafka.service
+    owner: root
+    group: root
+    mode: 0644

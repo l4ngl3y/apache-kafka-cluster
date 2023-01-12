@@ -1,0 +1,31 @@
+- name: Create Apache Kafka directories
+  tags: install-kafka
+  block:
+    - name: Install Apache Kafka | Create Kafka configurations folder
+      ansible.builtin.file:
+        path: /etc/kafka
+        owner: kafka
+        group: kafka
+        state: directory
+        mode: 0775
+    - name: Install Apache Kafka | Create Kafka data folder
+      ansible.builtin.file:
+        path: '{{ log_dirs }}'
+        owner: kafka
+        group: kafka
+        state: directory
+        mode: 0775
+    - name: Install Apache Kafka | Create jmx agent folder
+      ansible.builtin.file:
+        path: /opt/jmx-agent
+        owner: kafka
+        group: kafka
+        state: directory
+        mode: 0775
+    - name: Install Apache Kafka | Create Kafka logs folder
+      ansible.builtin.file:
+        path: /var/log/kafka
+        owner: kafka
+        group: kafka
+        state: directory
+        mode: 0777

@@ -1,0 +1,9 @@
+- name: Restart Apache Zookeeper cluster
+  tags: restart-zookeeper
+  ansible.builtin.include_tasks: "{{ tasks_item }}"
+  vars:
+    my_var: "{{ tasks_item }}"
+  with_items:
+    - restart.yaml
+  loop_control:
+    loop_var: tasks_item

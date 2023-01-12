@@ -1,0 +1,7 @@
+- name: Prepare system | Generate hosts file
+  tags: preinstall
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/hosts.j2"
+    dest: /etc/hosts
+    backup: yes
+  when: generate_hosts_file|bool == true

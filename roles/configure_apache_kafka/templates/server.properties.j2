@@ -1,0 +1,44 @@
+{% for host in groups['kafka'] %}
+{% if host == inventory_hostname %}
+broker.id={{ loop.index }}
+{% endif %}
+{% endfor %}
+{% for host in groups['kafka'] %}
+{% if host == inventory_hostname %}
+host.name={{ inventory_hostname }}
+{% endif %}
+{% endfor %}
+
+num.replica.fetchers=4
+num.network.threads=12
+num.io.threads=12
+min.insync.replicas=3
+
+auto.create.topics.enable=true
+delete.topic.enable=true
+
+default.replication.factor={{ default_replication_factor }}
+num.partitions={{ num_partitions }}
+
+socket.send.buffer.bytes=102400
+socket.receive.buffer.bytes=102400
+socket.request.max.bytes=104857600
+
+num.recovery.threads.per.data.dir=1
+
+listeners=PLAINTEXT://:9092
+
+log.dirs={{ log_dirs }}
+log.retention.hours={{ log_retention_hours }}
+log.segment.bytes=1073741824
+log.retention.check.interval.ms=300000
+
+zookeeper.connect = {% for host in groups['zookeeper']  %}
+{{ host }}:2181
+{%- if not loop.last %},{% endif %}
+{% endfor %}
+
+zookeeper.connection.timeout.ms=6000
+auto.leader.rebalance.enable=true
+
+# replica.lag.time.max.ms=30000

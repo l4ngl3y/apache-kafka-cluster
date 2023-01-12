@@ -1,0 +1,11 @@
+- name: Start tasks (create-user, create-folder, install)
+  tags: install-zookeeper
+  ansible.builtin.include_tasks: "{{ item_include }}"
+  vars:
+    my_var: "{{ item_include }}"
+  with_items:
+    - create-user.yml
+    - create-folder.yml
+    - install.yml
+  loop_control:
+    loop_var: item_include

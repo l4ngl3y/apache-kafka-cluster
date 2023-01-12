@@ -1,0 +1,22 @@
+- name: Prepare system | Disable security software in RedHat os
+  tags: preinstall
+  block:
+    - name: Prepare system | Stop and disable Firewalld service
+      ansible.builtin.systemd:
+        state: stopped
+        enabled: false
+        name: firewalld
+    - name: Prepare system | Disable SELinux
+      ansible.posix.selinux:
+        state: disabled
+      register: result
+      failed_when: result.msg | default('ok', True) is not search('(^ok$|libselinux-python|(SELinux state changed))')
+
+- name: Prepare system | Install specific packages
+  tags: preinstall
+  block:
+    - name: Prepare system | Install specific packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ specific_packages }}"

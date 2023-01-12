@@ -1,0 +1,31 @@
+- name: Prepare system | Disable security software in Debian like OS
+  tags: preinstall
+  block:
+    - name: Stop and disable UFW service
+      ansible.builtin.systemd:
+        state: stopped
+        enabled: false
+        name: ufw
+      register: command_result
+      failed_when: "'FAILED' in command_result.stderr"
+    - name: Stop and disable AppArmor service
+      ansible.builtin.systemd:
+        name: apparmor
+        enabled: true
+        state: stopped
+      register: command_result
+      failed_when: "'FAILED' in command_result.stderr"
+    - name: Remove package AppArmor
+      ansible.builtin.apt:
+        name: apparmor
+        state: absent
+        purge: true
+
+- name: Prepare system | Install specific packages
+  tags: preinstall
+  block:
+    - name: Prepare system | Install specific packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ specific_packages }}"

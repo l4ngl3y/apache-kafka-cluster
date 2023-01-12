@@ -1,0 +1,55 @@
+- hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - role: preinstall
+      tags: preinstall
+
+- hosts: kafka
+  become: true
+  gather_facts: true
+  roles:
+    - role: install_apache_kafka
+      tags: install-kafka
+
+- hosts: zookeeper
+  become: true
+  gather_facts: true
+  roles:
+    - role: install_apache_zookeeper
+      tags: install-zookeeper
+
+- hosts: kafka
+  become: true
+  gather_facts: true
+  roles:
+    - role: configure_apache_kafka
+      tags: configure-kafka
+
+- hosts: zookeeper
+  become: true
+  gather_facts: true
+  roles:
+    - role: configure_apache_zookeeper
+      tags: configure-zookeeper
+
+- hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - role: install_docker
+      tags: install-docker
+
+- hosts: kafka
+  become: true
+  gather_facts: true
+  roles:
+    - role: restart_apache_kafka
+      tags: restart-kafka
+
+- hosts: zookeeper
+  become: true
+  gather_facts: true
+  roles:
+    - role: restart_apache_zookeeper
+      tags: restart-zookeeper

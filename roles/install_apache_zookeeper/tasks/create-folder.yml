@@ -1,0 +1,17 @@
+- name: Create Apache Kafka directories
+  tags: install-kafka
+  block:
+    - name: Install Apache Zookeeper | Create system folder
+      ansible.builtin.file:
+        path: /etc/zookeeper
+        state: directory
+        mode: 0755
+        owner: zookeeper
+        group: zookeeper
+    - name: Install Apache Zookeeper | Create data folder
+      ansible.builtin.file:
+        path: /var/lib/zookeeper
+        state: directory
+        mode: 0755
+        owner: zookeeper
+        group: zookeeper

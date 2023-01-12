@@ -1,0 +1,17 @@
+- name: Configuration Apache Kafka
+  tags: configure-kafka
+  block:
+    - name: Configuration Apache Kafka | Copy JMX agent configuration file
+      ansible.builtin.copy:
+        src: "{{ inventory_dir }}/files/kafka/kafka-0-8-2.yml"
+        dest: /opt/jmx-agent/kafka-0-8-2.yml
+        owner: kafka
+        group: kafka
+        mode: 0644
+    - name: Configuration Apache Kafka | Copy JMX agent jar file
+      ansible.builtin.copy:
+        src: "{{ inventory_dir }}/files/kafka/jmx_prometheus_javaagent-0.12.0.jar"
+        dest: /opt/jmx-agent/jmx_prometheus_javaagent-0.12.0.jar
+        owner: kafka
+        group: kafka
+        mode: 0644

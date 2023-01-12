@@ -1,0 +1,6 @@
+ansible_groups: wheel
+specific_packages:
+  - epel-release
+  - golang-github-prometheus-node-exporter
+  - java-11-openjdk
+  - net-tools

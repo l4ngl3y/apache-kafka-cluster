@@ -1,0 +1,4 @@
+- name: Prepare system | Set timezone to Europe/Moscow
+  tags: preinstall
+  community.general.timezone:
+    name: Europe/Moscow

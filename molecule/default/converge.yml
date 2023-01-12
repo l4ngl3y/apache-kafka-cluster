@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - configuration
+    - install_apache_kafka
+    - install_apache_zookeeper
+
+  tasks:
+    - name: 'Test Kafka role'
+      include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

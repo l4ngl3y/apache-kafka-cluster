@@ -1,0 +1,18 @@
+[Unit]
+Description=Apache Zookeeper
+Documentation=http://zookeeper.apache.org
+After=network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/opt/zookeeper
+User=zookeeper
+Group=zookeeper
+ExecStart=/opt/zookeeper/bin/zkServer.sh start /etc/zookeeper/zookeeper.properties
+ExecStop=/opt/zookeeper/bin/zkServer.sh stop /etc/zookeeper/zookeeper.properties
+ExecReload=/opt/zookeeper/bin/zkServer.sh restart /etc/zookeeper/zookeeper.properties
+TimeoutSec=30
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

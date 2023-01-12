@@ -1,0 +1,33 @@
+- name: Install Apache Zookeeper
+  tags: install-zookeeper
+  vars:
+    proxy_env:
+      HTTP_PROXY: "{{ http_proxy }}"
+      HTTPS_PROXY: "{{ https_proxy }}"
+  block:
+    - name: Install Apache Zookeeper | Create Apache Zookeeper user
+      ansible.builtin.user:
+        name: zookeeper
+        system: true
+    - name: Install Apache Zookeeper | Download Apache Zookeeper
+      ansible.builtin.get_url:
+        url: "https://downloads.apache.org/zookeeper/zookeeper-{{ zookeeper_version }}/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz"
+        dest: "/tmp/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz"
+        owner: zookeeper
+        group: zookeeper
+        mode: 0777
+      environment: "{{ proxy_env }}"
+    - name: Install Apache Zookeeper | Extract Apache Zookeeper distr to /opt folder
+      ansible.builtin.unarchive:
+        src: '/tmp/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz'
+        dest: /opt
+        remote_src: true
+        owner: zookeeper
+        group: zookeeper
+    - name: Install Apache Zookeeper | Create a symbolic link to latest Apache Zookeeper distr
+      ansible.builtin.file:
+        src: '/opt/apache-zookeeper-{{ zookeeper_version }}-bin'
+        dest: /opt/zookeeper
+        owner: zookeeper
+        group: zookeeper
+        state: link

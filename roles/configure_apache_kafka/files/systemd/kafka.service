@@ -1,0 +1,19 @@
+[Unit]
+Description=Apache Kafka - broker
+Documentation=https://kafka.apache.org/documentation
+After=network.target zookeeper.target
+
+[Service]
+Type=forking
+User=kafka
+Group=kafka
+Environment="KAFKA_JMX_OPTS=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9096 -Dcom.sun.management.jmxremote.local.only=true -Dcom.sun.management.jmxremote.authenticate=false"
+Environment="KAFKA_OPTS=-javaagent:/opt/jmx-agent/jmx_prometheus_javaagent-0.12.0.jar=7071:/opt/jmx-agent/kafka-0-8-2.yml"
+ExecStart=/opt/kafka/bin/kafka-server-start.sh -daemon /etc/kafka/server.properties
+ExecStop=/opt/kafka/bin/kafka-server-stop.sh
+SuccessExitStatus=143
+TimeoutStopSec=180
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

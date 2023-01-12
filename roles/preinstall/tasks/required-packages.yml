@@ -1,0 +1,6 @@
+- name: Prepare system | Install required packages
+  tags: preinstall
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ system_packages }}"

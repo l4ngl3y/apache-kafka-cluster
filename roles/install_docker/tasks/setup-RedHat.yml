@@ -1,0 +1,25 @@
+---
+- name: Prepere RedHat-based system
+  tags: install-docker
+  when: ansible_distribution == "CentOS"
+  block:
+    - name: Ensure old versions of Docker are not installed.
+      ansible.builtin.yum:
+        name:
+          - docker
+          - docker-common
+          - docker-client
+          - docker-client-latest
+          - docker-latest
+          - docker-latest-logrotate
+          - docker-logrotate
+          - docker-engine
+        state: absent
+
+    - name: Add Docker repository.
+      ansible.builtin.get_url:
+        url: "https://download.docker.com/linux/centos/docker-ce.repo"
+        dest: "/etc/yum.repos.d/docker-ce.repo"
+        owner: root
+        group: root
+        mode: 0644

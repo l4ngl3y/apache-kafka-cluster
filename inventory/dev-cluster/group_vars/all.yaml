@@ -1,0 +1,29 @@
+system_packages:
+  - acl
+  - mc
+  - htop
+  - atop
+  - iotop
+  - rsync
+  - curl
+  - wget
+  - unzip
+
+kafka_version: 3.3.1
+zookeeper_version: 3.8.0
+
+http_proxy: ""
+https_proxy: ""
+
+# Generate hosts file:
+generate_hosts_file: true
+
+# Apache Kafka properties:
+default_replication_factor: 2
+num_partitions: 16
+log_retention_hours: 48
+log_dirs: "/var/lib/kafka"
+
+ansible_ssh_extra_args: -o StrictHostKeyChecking=no
+ansible_user: 
+ansible_ssh_private_key_file: 

@@ -1,0 +1,18 @@
+disable_grub: false
+
+system_packages:
+  - acl
+  - mc
+  - htop
+  - atop
+  - iotop
+  - rsync
+  - curl
+  - wget
+  - unzip
+
+kafka_version: 3.3.1
+zookeeper_version: 3.8.0
+
+http_proxy: ""
+https_proxy: ""

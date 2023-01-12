@@ -1,0 +1,19 @@
+- name: Prepare users environment | Common install
+  tags: preinstall
+  block:
+    - name: Prepare users environment | Copy default bashrc for RedHat like Linux
+      ansible.builtin.copy:
+        src: "{{ role_path }}/files/env/bashrc.centos"
+        dest: /etc/bashrc
+        owner: root
+        group: root
+        mode: 0644
+      when: ansible_os_family == 'RedHat'
+    - name: Prepare users environment | Copy default bashrc for Debian like Linux
+      ansible.builtin.copy:
+        src: "{{ role_path }}/files/env/bashrc.debian"
+        dest: /etc/bash.bashrc
+        owner: root
+        group: root
+        mode: 0644
+      when: ansible_os_family == 'Debian'

@@ -1,0 +1,17 @@
+- name: Configuration Apache Zookeeper
+  tags: configure-zookeeper
+  block:
+    - name: Configuration Apache Zookeeper | Template myid to var/lib/zookeeper/myid
+      ansible.builtin.template:
+        src: "templates/myid.j2"
+        dest: "/var/lib/zookeeper/myid"
+        owner: zookeeper
+        group: zookeeper
+        mode: 0644
+    - name: Configuration Apache Zookeeper | Copy configurations files
+      ansible.builtin.template:
+        src: "templates/zookeeper.properties.j2"
+        dest: /etc/zookeeper/zookeeper.properties
+        owner: zookeeper
+        group: zookeeper
+        mode: 0644

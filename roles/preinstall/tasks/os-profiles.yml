@@ -1,0 +1,9 @@
+- name: Prepare system | Load OS profiles
+  tags: preinstall
+  ansible.builtin.include_tasks: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family | lower }}-os-profiles.yml"
+      paths:
+        - "roles/preinstall/tasks"

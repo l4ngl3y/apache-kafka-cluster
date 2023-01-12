@@ -1,0 +1,15 @@
+- name: Prepare system | Start Prometheus Node exporter service
+  tags: preinstall
+  block:
+    - name: Prepare system | Enable and start Prometheus Node exporter (RedHat like os)
+      ansible.builtin.systemd:
+        state: started
+        enabled: true
+        name: node_exporter.service
+      when: ansible_os_family == 'RedHat'
+    - name: Prepare system | Enable and start Prometheus Node exporter (Debian like os)
+      ansible.builtin.systemd:
+        state: started
+        enabled: true
+        name: prometheus-node-exporter.service
+      when: ansible_os_family == 'Debian'

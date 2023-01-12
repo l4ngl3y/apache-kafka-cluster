@@ -1,0 +1,30 @@
+- name: Install Apache Kafka
+  tags: install-kafka
+  vars:
+    proxy_env:
+      HTTP_PROXY: "{{ http_proxy }}"
+      HTTPS_PROXY: "{{ https_proxy }}"
+  block:
+    - name: Install Apache Kafka | Download Apache Kafka distr
+      ansible.builtin.get_url:
+        url: https://downloads.apache.org/kafka/{{ kafka_version }}/kafka_2.13-{{ kafka_version }}.tgz
+        dest: /tmp/kafka_2.13-{{ kafka_version }}.tgz
+        owner: kafka
+        group: kafka
+        mode: 0774
+      environment: "{{ proxy_env }}"
+    - name: Install Apache Kafka | Extract Apache Kafka distr to opt
+      ansible.builtin.unarchive:
+        src: /tmp/kafka_2.13-{{ kafka_version }}.tgz
+        dest: /opt
+        remote_src: true
+        owner: kafka
+        group: kafka
+
+    - name: Install Apache Kafka | Create distr symbolic link
+      ansible.builtin.file:
+        src: /opt/kafka_2.13-{{ kafka_version }}
+        dest: /opt/kafka
+        owner: kafka
+        group: kafka
+        state: link

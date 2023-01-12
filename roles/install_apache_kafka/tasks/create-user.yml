@@ -1,0 +1,7 @@
+- name: Install Apache Kafka | Create Apache Kafka user
+  ansible.builtin.user:
+    name: kafka
+    shell: /bin/bash
+    create_home: false
+    system: true
+  tags: install-kafka

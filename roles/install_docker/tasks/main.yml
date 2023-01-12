@@ -1,0 +1,11 @@
+- name: Start tasks (setup-Debian, setup-RedHat, install)
+  ansible.builtin.include_tasks: "{{ item_include }}"
+  tags: install-docker
+  vars:
+    my_var: "{{ item_include }}"
+  with_items:
+    - setup-Debian.yml
+    - setup-RedHat.yml
+    - install.yml
+  loop_control:
+    loop_var: item_include

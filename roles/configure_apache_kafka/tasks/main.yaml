@@ -1,0 +1,11 @@
+- name: Configuration Apache Kafka
+  ansible.builtin.include_tasks: "{{ item_include }}"
+  tags: configure-kafka
+  vars:
+    my_var: "{{ item_include }}"
+  with_items:
+    - generate-configuration.yaml
+    - systemd-configuration.yaml
+    - jmx-agent.yaml
+  loop_control:
+    loop_var: item_include
