@@ -7,14 +7,14 @@
 
 - hosts: kafka
   become: true
-  gather_facts: true
+  gather_facts: false
   roles:
     - role: install_apache_kafka
       tags: install-kafka
 
 - hosts: zookeeper
   become: true
-  gather_facts: true
+  gather_facts: false
   roles:
     - role: install_apache_zookeeper
       tags: install-zookeeper
@@ -35,21 +35,28 @@
 
 - hosts: all
   become: true
-  gather_facts: true
+  gather_facts: false
   roles:
     - role: install_docker
       tags: install-docker
 
 - hosts: kafka
   become: true
-  gather_facts: true
+  gather_facts: false
   roles:
     - role: restart_apache_kafka
       tags: restart-kafka
 
 - hosts: zookeeper
   become: true
-  gather_facts: true
+  gather_facts: false
   roles:
     - role: restart_apache_zookeeper
       tags: restart-zookeeper
+
+- hosts: all
+  become: true
+  gather_facts: false
+  roles:
+    - role: check_services
+      tags: check-services
