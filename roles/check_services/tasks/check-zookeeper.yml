@@ -1,0 +1,9 @@
+- name: Get Apache Zookeeper service status
+  tags: check-services
+  block:
+    - name: Zookeeper
+      ansible.builtin.systemd:
+        name: "zookeeper"
+      register: zookeeper_status
+    - debug:
+        var: zookeeper_status.status.ActiveState

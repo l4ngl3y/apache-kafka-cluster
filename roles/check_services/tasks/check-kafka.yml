@@ -1,0 +1,9 @@
+- name: Get Apache Kafka service status
+  tags: check-services
+  block:
+    - name: Kafka
+      ansible.builtin.systemd:
+        name: "kafka"
+      register: kafka_status
+    - debug:
+        var: kafka_status.status.ActiveState

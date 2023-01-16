@@ -1,0 +1,8 @@
+- name: Check service status
+  tags: check-services
+  ansible.builtin.include_tasks: "{{ tasks_item }}"
+  with_items:
+    - check-kafka.yml
+    - check-zookeeper.yml
+  loop_control:
+    loop_var: tasks_item
