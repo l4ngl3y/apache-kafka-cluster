@@ -34,6 +34,11 @@ ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'insta
 ```shell
 ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'configure-zookeeper'
 ```
+### Перезапуск сервисов Apache Kafka и Apache Zookeeper
+```shell
+ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'restart-zookeeper'
+ansible-playbook -i inventory/dev-cluster/hosts.yaml playbook.yaml --tags 'restart-kafka'
+```
 ### Установка Docker engine
 Docker engine - требуется для запуска вспомогательного ПО Apache Kafka кластера - вчастности UI приложения.
 ```shell
