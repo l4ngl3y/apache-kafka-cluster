@@ -1,8 +1,15 @@
 - name: Configuration Apache Zookeeper | Copy systemd files
   tags: configure-zookeeper
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/systemd/zookeeper.service"
-    dest: /etc/systemd/system/zookeeper.service
-    owner: root
-    group: root
-    mode: 0644
+  block:
+    - name: Configuration Apache Zookeeper | Copy systemd files
+      ansible.builtin.copy:
+        src: "{{ role_path }}/files/systemd/zookeeper.service"
+        dest: /etc/systemd/system/zookeeper.service
+        owner: root
+        group: root
+        mode: 0644
+    - name: Configuration Apache Zookeeper |Enable systemd Apache Zookeeper service
+      ansible.builtin.systemd:
+        name: zookeeper.service
+        state: started
+        enabled: true
